@@ -1,6 +1,6 @@
 <?php
 	//http://blog.sherifmansour.com/?p=302
-	$feed = file_get_contents("http://devilsworkshop.org/feed/");
+	$feed = file_get_contents($_GET['file']);
 	$xml = new SimpleXmlElement($feed);
 	$slide_array = array();
 	$pdf_array = array();
@@ -9,7 +9,7 @@
 		   preg_match_all('/<img[^>]+>/i', $dc->encoded,$img); 
 		   preg_match('/<img\s.*?\bsrc="(.*?)".*?>/si',$img[0][0],$src);
 		   $slide_array[] = '{image : "'.$src[1].'", title : "'.$entry->title.'"}';		   
-		   $pdf_array[] = $src[1].'/**/'.$entry->title;
+		   $pdf_array[] = $src[1].'/**/'.$entry->title.'/**/'.$entry->link.'/**/'.$entry->description;
 	}
 			require_once('fpdf/fpdf.php');
 			$pdf=new PDF_MC_Table();
@@ -23,13 +23,14 @@
 				$image[] = explode('/**/',$val);
 				//$row_arr[]='<image src="'.$image[0][0].'">';
 				//$pdf->Row($row_arr);
-				$pdf->WriteHTML($image[0][1]);
-				$pdf->Image($image[0][0],30,40);
+				$pdf->WriteHTML('<a href="'.$image[0][2].'">'.$image[0][1].'</a>');
+				$pdf->Ln();
+				$pdf->WriteHTML($image[0][3]);
+				$pdf->Image($image[0][0],30,80,'','','',$image[0][2]);
 				//unset($row_arr);
 				unset($image);
 				if($val != end($pdf_array))
 				$pdf->AddPage();
-
 			}
 			$pdf->Output('Slides.pdf','D');die;
 ?>

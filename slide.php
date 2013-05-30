@@ -24,6 +24,7 @@
 		   $slide_array[] = '{image : \''.$src[1].'\', title : \''.$entry->title.'\'}';		   
 		   $pdf_array[] = $src[1].'/**/'.$entry->title;
 	}	
+
 ?>
 <script type="text/javascript">
 	jQuery(function($){
