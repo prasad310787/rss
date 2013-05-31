@@ -124,7 +124,7 @@ function resize_image($method,$image_loc,$new_loc,$width,$height) {
     if (count($GLOBALS['errors']) > 0) { @imagedestroy($image); echo_errors(); return false; }
     
     $save_error = false;
-    if (in_array($extension,array('.jpg','.jpeg'))) { imagejpeg($new_image,$new_loc) or ($save_error = true); }
+    if (in_array($extension,array('.jpg','.jpeg'))) { imagejpeg($new_image) or ($save_error = true); }
     elseif ($extension == '.png') { imagepng($new_image) or ($save_error = true); }
     elseif ($extension == '.gif') { imagegif($new_image) or ($save_error = true); }
     elseif ($extension == '.bmp') { imagewbmp($new_image) or ($save_error = true); }
