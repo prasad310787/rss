@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks
+        # Enable Rewriting
+	RewriteEngine on
+	# Rewrite user URLs
+	#   Input:  user/NAME/
+	#   Output: user.php?id=NAME	
+	 RewriteCond %{REQUEST_URI} !\.(css|gif|ico|jpg|js|png|swf|txt|php|xml)$
+         RewriteCond %{REQUEST_FILENAME} !-f
+         RewriteRule ^(.*)$ /index.php?url=$1
+        # RewriteRule ^(.*)$ /index.php/$1
+        # RewriteCond $1 !^(index\.php|images|resources|css|js)
+        # RewriteRule ^(.*)$ /index.php?url=$1 [L] 
+</IfModule>
